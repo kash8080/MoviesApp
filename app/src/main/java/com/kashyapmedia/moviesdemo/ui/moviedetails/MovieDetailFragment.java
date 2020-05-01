@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -56,6 +57,13 @@ public class MovieDetailFragment extends Fragment {
         binding = FragmentMovieDetailsBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
+        init();
+
+        return view;
+    }
+
+    private void init(){
+
         largeImage=new RequestOptions()
                 .override(ScreenUtils.convertDpToPixels(300,getActivity()));
 
@@ -69,7 +77,26 @@ public class MovieDetailFragment extends Fragment {
             }
         });
 
-        return view;
+        binding.detailsPanel1.setAlpha(0);
+        binding.detailsPanel1.setTranslationY(ScreenUtils.convertDpToPixels(50,getActivity()));
+        binding.detailsPanel1.animate()
+                .alpha(1)
+                .translationY(0)
+                .setStartDelay(300)
+                .setDuration(300)
+                .setInterpolator(new DecelerateInterpolator());
+
+
+        binding.panel2.setAlpha(0);
+        binding.panel2.setTranslationY(ScreenUtils.convertDpToPixels(50,getActivity()));
+        binding.panel2.animate()
+                .alpha(1)
+                .translationY(0)
+                .setDuration(300)
+                .setStartDelay(300)
+                .setInterpolator(new DecelerateInterpolator());
+
+
     }
 
     @Override

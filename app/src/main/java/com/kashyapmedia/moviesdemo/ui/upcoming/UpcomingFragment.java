@@ -49,6 +49,8 @@ public class UpcomingFragment extends Fragment implements SimpleMovieListAdapter
         super.onViewCreated(view, savedInstanceState);
         model = new ViewModelProvider(requireActivity()).get(UpcomingViewModel.class);
 
+        binding.imageError.setVisibility(View.INVISIBLE);
+        binding.progressBar.setVisibility(View.INVISIBLE);
         String lang=getString(R.string.lang);
         model.getMovieData(lang).observe(this, new Observer<Resource<List<MovieEntity>>>() {
             @Override
@@ -56,15 +58,21 @@ public class UpcomingFragment extends Fragment implements SimpleMovieListAdapter
                 switch (listResource.getStatus()){
                     case SUCCESS:{
                         Log.d(TAG, "onChanged: success "+listResource.getData().size());
+                        binding.imageError.setVisibility(View.INVISIBLE);
                         movieListAdapter.setList(listResource.getData());
+                        binding.progressBar.setVisibility(View.INVISIBLE);
                         break;
                     }
                     case ERROR:{
                         Log.d(TAG, "onChanged: error "+listResource.getMessage());
+                        binding.imageError.setVisibility(View.VISIBLE);
+                        binding.progressBar.setVisibility(View.INVISIBLE);
 
                         break;
                     }
                     case LOADING:{
+                        binding.imageError.setVisibility(View.INVISIBLE);
+                        binding.progressBar.setVisibility(View.VISIBLE);
                         Log.d(TAG, "onChanged: LOADING");
                         break;
                     }

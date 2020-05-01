@@ -11,5 +11,6 @@
     <string name="enter_name">Enter Name</string>
     <string name="enter_email">Enter Email</string>
     <string name="save">Save</string>
+    <string name="no_data_found">No Data Found</string>
 
 </resources>

@@ -1,15 +1,11 @@
 package com.kashyapmedia.moviesdemo.repository;
 
-import android.util.Log;
-
 import com.kashyapmedia.moviesdemo.api.models.Movie;
 import com.kashyapmedia.moviesdemo.db.entities.MovieEntity;
 
 public class ModelsToEntities {
-    private static final String TAG = "ModelsToEntities";
 
     public static MovieEntity changeMovieEntity(Movie movie){
-        Log.d(TAG, "changeMovieEntity: "+movie.getOverview());
         MovieEntity movieEntity=new MovieEntity();
         movieEntity.id=movie.getId();
         movieEntity.budget=movie.getBudget();

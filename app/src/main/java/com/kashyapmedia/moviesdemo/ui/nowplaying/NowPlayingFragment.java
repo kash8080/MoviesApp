@@ -37,7 +37,7 @@ public class NowPlayingFragment extends Fragment implements SimpleMovieListAdapt
         movieListAdapter=new SimpleMovieListAdapter(this,getActivity());
         binding.recView.setAdapter(movieListAdapter);
         binding.recView.setLayoutManager(new GridLayoutManager(getActivity(),2));
-        
+
         return view;
     }
 
@@ -46,6 +46,8 @@ public class NowPlayingFragment extends Fragment implements SimpleMovieListAdapt
         super.onViewCreated(view, savedInstanceState);
         model = new ViewModelProvider(requireActivity()).get(NowPlayingViewModel.class);
 
+        binding.imageError.setVisibility(View.INVISIBLE);
+        binding.progressBar.setVisibility(View.INVISIBLE);
         String lang=getString(R.string.lang);
         model.getMovieData(lang).observe(NowPlayingFragment.this, new Observer<Resource<List<MovieEntity>>>() {
             @Override
@@ -54,15 +56,20 @@ public class NowPlayingFragment extends Fragment implements SimpleMovieListAdapt
                     case SUCCESS:{
                         Log.d(TAG, "onChanged: success "+listResource.getData().size());
                         movieListAdapter.setList(listResource.getData());
+                        binding.imageError.setVisibility(View.INVISIBLE);
+                        binding.progressBar.setVisibility(View.INVISIBLE);
                         break;
                     }
                     case ERROR:{
                         Log.d(TAG, "onChanged: error "+listResource.getMessage());
-
+                        binding.imageError.setVisibility(View.VISIBLE);
+                        binding.progressBar.setVisibility(View.INVISIBLE);
                         break;
                     }
                     case LOADING:{
                         Log.d(TAG, "onChanged: LOADING");
+                        binding.imageError.setVisibility(View.INVISIBLE);
+                        binding.progressBar.setVisibility(View.VISIBLE);
                         break;
                     }
                 }

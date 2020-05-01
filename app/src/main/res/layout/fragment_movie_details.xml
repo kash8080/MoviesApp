@@ -49,6 +49,7 @@
                 android:layout_height="200dp"
                 android:layout_gravity="bottom"
                 app:layout_collapseMode="pin"
+                android:id="@+id/detailsPanel1"
                 >
                 <ImageView
                     android:layout_width="wrap_content"
@@ -133,6 +134,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:id="@+id/panel2"
             >
 
             <androidx.cardview.widget.CardView

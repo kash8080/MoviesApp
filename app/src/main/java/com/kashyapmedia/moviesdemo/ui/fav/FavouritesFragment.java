@@ -55,15 +55,21 @@ public class FavouritesFragment extends Fragment implements  SimpleMovieListAdap
                     case SUCCESS:{
                         Log.d(TAG, "onChanged: success "+listResource.getData().size());
                         movieListAdapter.setList(listResource.getData());
+                        if(listResource.getData().size()==0){
+                            binding.noDataFound.setVisibility(View.VISIBLE);
+                        }else{
+                            binding.noDataFound.setVisibility(View.INVISIBLE);
+                        }
                         break;
                     }
                     case ERROR:{
                         Log.d(TAG, "onChanged: error "+listResource.getMessage());
-
+                        binding.noDataFound.setVisibility(View.VISIBLE);
                         break;
                     }
                     case LOADING:{
                         Log.d(TAG, "onChanged: LOADING");
+                        binding.noDataFound.setVisibility(View.INVISIBLE);
                         break;
                     }
                 }
