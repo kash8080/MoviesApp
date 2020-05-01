@@ -6,6 +6,7 @@ public class Movie {
     private int budget;
     private int revenue;
     private String title;
+    private String overview;
     private String poster_path;
     private String backdrop_path;
     private String release_date;
@@ -104,5 +105,13 @@ public class Movie {
 
     public void setBackdrop_path(String backdrop_path) {
         this.backdrop_path = backdrop_path;
+    }
+
+    public String getOverview() {
+        return overview;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
     }
 }

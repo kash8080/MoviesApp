@@ -1,31 +1,36 @@
-package com.kashyapmedia.moviesdemo.ui;
+package com.kashyapmedia.moviesdemo.ui.main;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.navigation.NavigationView;
 import com.kashyapmedia.moviesdemo.R;
 import com.kashyapmedia.moviesdemo.databinding.ActivityMainBinding;
+import com.kashyapmedia.moviesdemo.db.entities.ProfileEntity;
+import com.kashyapmedia.moviesdemo.repository.Resource;
 import com.kashyapmedia.moviesdemo.ui.fav.FavouritesFragment;
 import com.kashyapmedia.moviesdemo.ui.home.HomeFragment;
 import com.kashyapmedia.moviesdemo.ui.profile.ProfileFragment;
+import com.kashyapmedia.moviesdemo.util.PreferenceUtils;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "MainActivity";
 
     private ActivityMainBinding binding;
     ActionBarDrawerToggle toggle;
+    private MainActViewModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,13 +38,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+        model = new ViewModelProvider(this).get(MainActViewModel.class);
+        observe();
+
+        String lastLang= PreferenceUtils.getLastLanguage(this);
+        String curLang=getString(R.string.lang);
+        if(lastLang.length()>0 && !lastLang.equalsIgnoreCase(curLang)){
+            model.resetLocalData();
+        }
+        PreferenceUtils.setLastLanguage(this,curLang);
+
         setup();
 
-    }
-
-    @Override
-    public void onPostCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onPostCreate(savedInstanceState, persistentState);
     }
 
     private void setup(){
@@ -66,6 +77,45 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 binding.navView.setCheckedItem(R.id.menu_profile);
             }else{
                 binding.navView.setCheckedItem(R.id.menu_home);
+            }
+        });
+    }
+    private void observe(){
+        model.getProfileData().observe(this, new Observer<Resource<ProfileEntity>>() {
+            @Override
+            public void onChanged(Resource<ProfileEntity> profileEntityResource) {
+                switch (profileEntityResource.getStatus()){
+                    case SUCCESS:{
+                        Log.d(TAG, "onChanged: success "+profileEntityResource.getData());
+                        ProfileEntity profileEntity=profileEntityResource.getData();
+                        if(profileEntity==null){
+                            model.saveProfileData("rahul","test@gmail.com");
+                        }else{
+                            //navView.findViewById(R.id.nav_header_name)
+                            TextView tvname = binding.navView.getHeaderView(0).findViewById(R.id.nav_header_name);
+                            TextView tvemail = binding.navView.getHeaderView(0).findViewById(R.id.nav_header_email);
+                            try{
+                                tvname.setText(profileEntity.name);
+                                tvemail.setText(profileEntity.email);
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            // TODO: 01-05-2020 check why crashing sometimes here tvname is null
+
+                        }
+
+                        break;
+                    }
+                    case ERROR:{
+                        Log.d(TAG, "onChanged: error "+profileEntityResource.getMessage());
+
+                        break;
+                    }
+                    case LOADING:{
+                        Log.d(TAG, "onChanged: LOADING");
+                        break;
+                    }
+                }
             }
         });
     }

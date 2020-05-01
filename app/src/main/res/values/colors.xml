@@ -17,5 +17,6 @@
     <color name="colorTextSecondaryLight">#cacaca</color>
 
     <color name="colorTransparent">#00ffffff</color>
+    <color name="colorBackgroundEdittext">#f0f0f0</color>
 
 </resources>

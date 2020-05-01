@@ -79,7 +79,7 @@ public class MovieRepository {
 
     }
 
-    public LiveData<Resource<List<MovieEntity>>> getNowPlayingMovies()  {
+    public LiveData<Resource<List<MovieEntity>>> getNowPlayingMovies(String lang)  {
         return new NetworkBoundResource<List<MovieEntity>,GenericListResponse<Movie>>(appExecutors){
 
             @Override
@@ -95,7 +95,7 @@ public class MovieRepository {
 
             @Override
             protected LiveData<ApiResponse<GenericListResponse<Movie>>> createCall() {
-                return movieService.getNowPlayingMovies(ApiKeys.MOVIEAPIKEY);
+                return movieService.getNowPlayingMovies(ApiKeys.MOVIEAPIKEY,lang);
             }
 
             @Override
@@ -114,7 +114,7 @@ public class MovieRepository {
 
     }
 
-    public LiveData<Resource<List<MovieEntity>>> getUpcomingMovies()  {
+    public LiveData<Resource<List<MovieEntity>>> getUpcomingMovies(String lang)  {
         return new NetworkBoundResource<List<MovieEntity>,GenericListResponse<Movie>>(appExecutors){
 
             @Override
@@ -129,7 +129,7 @@ public class MovieRepository {
 
             @Override
             protected LiveData<ApiResponse<GenericListResponse<Movie>>> createCall() {
-                return movieService.getUpcomingMovies(ApiKeys.MOVIEAPIKEY);
+                return movieService.getUpcomingMovies(ApiKeys.MOVIEAPIKEY,lang);
             }
 
             @Override
@@ -202,6 +202,15 @@ public class MovieRepository {
             }
         });
         return mediatorLiveData;
+    }
+
+    public void resetLocalData(){
+        appExecutors.getDiskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                movieDao.deleteAll();
+            }
+        });
     }
 
 }

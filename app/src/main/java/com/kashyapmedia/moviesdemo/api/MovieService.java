@@ -26,13 +26,13 @@ public interface MovieService {
             "Content-Type: application/json"
     })
     @GET("movie/now_playing")
-    LiveData<ApiResponse<GenericListResponse<Movie>>> getNowPlayingMovies(@Query("api_key") String api_key);
+    LiveData<ApiResponse<GenericListResponse<Movie>>> getNowPlayingMovies(@Query("api_key") String api_key,@Query("language") String language);
 
     @Headers({
             "Accept: application/json",
             "Content-Type: application/json"
     })
     @GET("movie/upcoming")
-    LiveData<ApiResponse<GenericListResponse<Movie>>> getUpcomingMovies(@Query("api_key") String api_key);
+    LiveData<ApiResponse<GenericListResponse<Movie>>> getUpcomingMovies(@Query("api_key") String api_key,@Query("language") String language);
 
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MoviesDemo</string>
+    <string name="lang">de</string>
+    <string name="now_playing">Läuft gerade</string>
+    <string name="upcoming">Bevorstehende</string>
+    <string name="home">Zuhause</string>
+    <string name="favouritea">Favoriten</string>
+    <string name="profile">Profil</string>
+    <string name="drawer_open">Schublade offen</string>
+    <string name="drawer_closed">Schublade geschlossen</string>
+    <string name="enter_name">Name eingeben</string>
+    <string name="enter_email">Email eingeben</string>
+    <string name="save">speichern</string>
+
+</resources>

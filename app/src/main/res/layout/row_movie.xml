@@ -11,34 +11,42 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="bottom"
-        >
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:id="@+id/image"
-            android:minHeight="150dp"
-            />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="bottom"
-            android:background="@drawable/shadow_rev"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/title"
-            android:layout_gravity="bottom"
-            android:maxLines="2"
-            android:textSize="16sp"
-            android:padding="10dp"
-            android:textColor="@color/colorTextPrimaryLight"
+        android:layout_height="match_parent"
 
-            />
+        >
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:id="@+id/image"
+                android:minHeight="150dp"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="bottom"
+                android:background="@drawable/shadow_rev"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/title"
+                android:layout_gravity="bottom"
+                android:maxLines="2"
+                android:textSize="16sp"
+                android:padding="10dp"
+                android:textColor="@color/colorTextPrimaryLight"
+
+                />
+
+        </FrameLayout>
+
         <ImageView
             android:layout_width="48dp"
             android:layout_height="48dp"
@@ -49,7 +57,6 @@
             android:elevation="2dp"
             />
     </FrameLayout>
-
 
 
 </androidx.cardview.widget.CardView>

@@ -16,9 +16,9 @@ public class NowPlayingViewModel extends ViewModel {
     private LiveData<Resource<List<MovieEntity>>> movies;
 
 
-    public LiveData<Resource<List<MovieEntity>>> getMovieData() {
+    public LiveData<Resource<List<MovieEntity>>> getMovieData(String lang) {
         if (movies == null) {
-            movies=MovieRepository.get_instance().getNowPlayingMovies();
+            movies=MovieRepository.get_instance().getNowPlayingMovies(lang);
         }
         return movies;
     }

@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import com.kashyapmedia.moviesdemo.R;
 import com.kashyapmedia.moviesdemo.databinding.FragmentUpcomingBinding;
 import com.kashyapmedia.moviesdemo.db.entities.MovieEntity;
 import com.kashyapmedia.moviesdemo.repository.Resource;
@@ -48,7 +49,8 @@ public class UpcomingFragment extends Fragment implements SimpleMovieListAdapter
         super.onViewCreated(view, savedInstanceState);
         model = new ViewModelProvider(requireActivity()).get(UpcomingViewModel.class);
 
-        model.getMovieData().observe(this, new Observer<Resource<List<MovieEntity>>>() {
+        String lang=getString(R.string.lang);
+        model.getMovieData(lang).observe(this, new Observer<Resource<List<MovieEntity>>>() {
             @Override
             public void onChanged(Resource<List<MovieEntity>> listResource) {
                 switch (listResource.getStatus()){

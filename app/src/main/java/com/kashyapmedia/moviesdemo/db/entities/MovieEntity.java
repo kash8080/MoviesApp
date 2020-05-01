@@ -19,6 +19,8 @@ public class MovieEntity {
 
     @ColumnInfo(name = "title")
     public String title;
+    @ColumnInfo(name = "overview")
+    public String overview;
     @ColumnInfo(name = "poster_path")
     public String poster_path;
     @ColumnInfo(name = "backdrop_path")
@@ -55,6 +57,7 @@ public class MovieEntity {
         movieEntity.budget=budget;
         movieEntity.revenue=revenue;
         movieEntity.title=title;
+        movieEntity.overview=overview;
         movieEntity.poster_path=poster_path;
         movieEntity.backdrop_path=backdrop_path;
         movieEntity.release_date=release_date;

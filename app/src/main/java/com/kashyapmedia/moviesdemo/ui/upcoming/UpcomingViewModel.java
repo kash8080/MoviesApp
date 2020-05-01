@@ -16,9 +16,9 @@ public class UpcomingViewModel extends ViewModel {
     private LiveData<Resource<List<MovieEntity>>> movies;
 
 
-    public LiveData<Resource<List<MovieEntity>>> getMovieData() {
+    public LiveData<Resource<List<MovieEntity>>> getMovieData(String lang) {
         if (movies == null) {
-            movies=MovieRepository.get_instance().getUpcomingMovies();
+            movies=MovieRepository.get_instance().getUpcomingMovies(lang);
         }
         return movies;
     }

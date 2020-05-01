@@ -32,7 +32,7 @@ public class MovieDetailFragment extends Fragment {
 
     int movieId;
     MovieEntity movieEntity;
-    RequestOptions largeImage;
+    RequestOptions largeImage,smallOptions;
 
     public static MovieDetailFragment newInstance(int movieId) {
 
@@ -59,6 +59,15 @@ public class MovieDetailFragment extends Fragment {
         largeImage=new RequestOptions()
                 .override(ScreenUtils.convertDpToPixels(300,getActivity()));
 
+        smallOptions=new RequestOptions()
+                .override(ScreenUtils.convertDpToPixels(150,getActivity()));
+
+        binding.btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
+            }
+        });
 
         return view;
     }
@@ -112,18 +121,23 @@ public class MovieDetailFragment extends Fragment {
         }
         if(movieEntity.backdrop_path!=null) {
             Glide.with(this)
-                    .load(ApiClient.IMAGEBASEURL+ApiClient.IMAGESIZEMEDIUM+movieEntity.backdrop_path)
+                    .load(ApiClient.IMAGEBASEURL+ApiClient.IMAGESIZE500+movieEntity.backdrop_path)
                     .apply(largeImage)
                     .into(binding.parallaxImage);
         }
-        if(movieEntity.backdrop_path!=null) {
-            /*
+        if(movieEntity.poster_path!=null) {
+
             Glide.with(this)
-                    .load(movieEntity.backdrop_path)
-                    .apply(largeImage)
-                    .into(binding.parallaxImage);*/
+                    .load(ApiClient.IMAGEBASEURL+ApiClient.IMAGESIZEMEDIUM+movieEntity.poster_path)
+                    .apply(smallOptions)
+                    .into(binding.image);
         }
 
+        binding.title.setText(movieEntity.title);
+        binding.releaseDate.setText(movieEntity.release_date);
+        binding.rating.setText(movieEntity.vote_average+"/10");
+        Log.d(TAG, "refreshData: "+movieEntity.overview);
+        binding.overview.setText(movieEntity.overview);
 
     }
 }

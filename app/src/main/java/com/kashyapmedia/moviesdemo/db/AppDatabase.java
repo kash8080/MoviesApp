@@ -9,16 +9,20 @@ import androidx.room.RoomDatabase;
 
 import com.kashyapmedia.moviesdemo.db.dao.FavouritesDao;
 import com.kashyapmedia.moviesdemo.db.dao.MovieDao;
+import com.kashyapmedia.moviesdemo.db.dao.ProfileDao;
 import com.kashyapmedia.moviesdemo.db.entities.FavouritesEntity;
 import com.kashyapmedia.moviesdemo.db.entities.MovieEntity;
+import com.kashyapmedia.moviesdemo.db.entities.ProfileEntity;
 
 
-@Database(entities = {MovieEntity.class, FavouritesEntity.class}, version = 5)
+@Database(entities = {MovieEntity.class, FavouritesEntity.class, ProfileEntity.class}, version = 8)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract MovieDao movieDao();
 
     public abstract FavouritesDao favDao();
+
+    public abstract ProfileDao profileDao();
 
     private static AppDatabase instance;
 
