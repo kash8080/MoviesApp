@@ -40,8 +40,8 @@ public class HomeFragment extends Fragment {
     
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
         binding=null;
+        super.onDestroyView();
     }
 
 

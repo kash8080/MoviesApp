@@ -1,4 +1,4 @@
-package com.kashyapmedia.moviesdemo.ui.nowplaying;
+package com.kashyapmedia.moviesdemo.ui.upcoming;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
@@ -10,7 +10,7 @@ import com.kashyapmedia.moviesdemo.repository.Resource;
 
 import java.util.List;
 
-public class NowPlayingViewModel extends ViewModel {
+public class UpcomingViewModel extends ViewModel {
     private static final String TAG = "NowPlayingViewModel";
 
     private LiveData<Resource<List<MovieEntity>>> movies;
@@ -18,7 +18,7 @@ public class NowPlayingViewModel extends ViewModel {
 
     public LiveData<Resource<List<MovieEntity>>> getMovieData() {
         if (movies == null) {
-            movies=MovieRepository.get_instance().getNowPlayingMovies();
+            movies=MovieRepository.get_instance().getUpcomingMovies();
         }
         return movies;
     }

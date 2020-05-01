@@ -1,4 +1,4 @@
-package com.kashyapmedia.moviesdemo.ui.nowplaying;
+package com.kashyapmedia.moviesdemo.ui.moviedetails;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
@@ -8,19 +8,17 @@ import com.kashyapmedia.moviesdemo.repository.FavouritesRepository;
 import com.kashyapmedia.moviesdemo.repository.MovieRepository;
 import com.kashyapmedia.moviesdemo.repository.Resource;
 
-import java.util.List;
-
-public class NowPlayingViewModel extends ViewModel {
+public class MovieDetailViewModel extends ViewModel {
     private static final String TAG = "NowPlayingViewModel";
 
-    private LiveData<Resource<List<MovieEntity>>> movies;
+    private LiveData<Resource<MovieEntity>> movieData;
 
 
-    public LiveData<Resource<List<MovieEntity>>> getMovieData() {
-        if (movies == null) {
-            movies=MovieRepository.get_instance().getNowPlayingMovies();
+    public LiveData<Resource<MovieEntity>> getMovieData(int movieId) {
+        if (movieData == null) {
+            movieData=MovieRepository.get_instance().getMovieDetails(movieId);
         }
-        return movies;
+        return movieData;
     }
 
     public void removeFavourite(int movieId) {

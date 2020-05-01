@@ -7,6 +7,7 @@ public class Movie {
     private int revenue;
     private String title;
     private String poster_path;
+    private String backdrop_path;
     private String release_date;
     private String status;
     private double vote_average;
@@ -95,5 +96,13 @@ public class Movie {
 
     public void setVote_count(int vote_count) {
         this.vote_count = vote_count;
+    }
+
+    public String getBackdrop_path() {
+        return backdrop_path;
+    }
+
+    public void setBackdrop_path(String backdrop_path) {
+        this.backdrop_path = backdrop_path;
     }
 }

@@ -14,6 +14,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiClient {
 
     public static final String BASEURL = "https://api.themoviedb.org/3/";
+    public static final String IMAGEBASEURL = "https://image.tmdb.org/t/p";
+    public static final String IMAGESIZENORMAL = "/w185";//"w92", "w154", "w185", "w342", "w500", "w780", or "original";
+    public static final String IMAGESIZEMEDIUM = "/w342";//"w92", "w154", "w185", "w342", "w500", "w780", or "original";
     public static final boolean okHttpLogging=true;
 
     private static Retrofit retrofit = null;

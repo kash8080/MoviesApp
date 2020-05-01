@@ -4,8 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.upcoming.UpcomingFragment"
-    android:background="#00ffff"
+    android:background="@color/colorBackground"
     >
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rec_view"
+        >
+
+    </androidx.recyclerview.widget.RecyclerView>
+
 
 
 </FrameLayout>

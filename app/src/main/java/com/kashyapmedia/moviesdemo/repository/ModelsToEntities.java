@@ -12,6 +12,7 @@ public class ModelsToEntities {
         movieEntity.revenue=movie.getRevenue();
         movieEntity.title=movie.getTitle();
         movieEntity.poster_path=movie.getPoster_path();
+        movieEntity.backdrop_path=movie.getBackdrop_path();
         movieEntity.release_date=movie.getRelease_date();
         movieEntity.status=movie.getStatus();
         movieEntity.vote_average=movie.getVote_average();
