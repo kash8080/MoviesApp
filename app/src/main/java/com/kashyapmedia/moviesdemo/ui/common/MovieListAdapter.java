@@ -88,7 +88,6 @@ public class MovieListAdapter extends ListAdapter<MovieEntity, ViewBindViewHolde
             holder.binding.image.setImageDrawable(null);// TODO: 01-05-2020
         }
 
-        holder.binding.title.setText(movieEntity.title);
         if(movieEntity.isFavourite){
             holder.binding.iconLike.setImageResource(R.drawable.ic_favourite_on);
         }else{

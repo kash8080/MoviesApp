@@ -12,6 +12,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -49,11 +50,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         PreferenceUtils.setLastLanguage(this,curLang);
 
-        setup();
+        setup(savedInstanceState);
 
     }
 
-    private void setup(){
+    private void setup(Bundle savedInstanceState){
 
         setSupportActionBar(binding.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -63,11 +64,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         binding.drawerLayout.setDrawerListener(toggle);
 
         binding.navView.setNavigationItemSelectedListener(this);
-        openHomePage();
+        if(savedInstanceState==null){
+            //starting this activity from scratch so initialise it with home page
+            openHomePage();
+        }else{
+            //recreating the activity after orientation change and the fragment manager already manages the backstack so no need to reset it
+        }
 
         // TODO: 01-05-2020
         getSupportFragmentManager().addOnBackStackChangedListener(() -> {
-            Log.d(TAG, "backstack changed: ");
+            Log.d(TAG, "backstack changed: size:"+getSupportFragmentManager().getBackStackEntryCount());
             Fragment current = getSupportFragmentManager().findFragmentById(R.id.frame);
             if (current instanceof HomeFragment) {
                 binding.navView.setCheckedItem(R.id.menu_home);
@@ -158,6 +164,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Log.d(TAG, "onNavigationItemSelected: ");
         switch (item.getItemId()){
             case R.id.menu_home:{
                 openHomePage();
@@ -177,6 +184,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void openHomePage(){
+        getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        Log.d(TAG, "openHomePage: ");
         binding.navView.setCheckedItem(R.id.menu_home);
         getSupportFragmentManager()
                 .beginTransaction()
@@ -184,6 +193,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .commit();
     }
     private void openFavPage(){
+        Log.d(TAG, "openFavPage: ");
         binding.navView.setCheckedItem(R.id.menu_favourite);
         getSupportFragmentManager()
                 .beginTransaction()
@@ -192,6 +202,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .commit();
     }
     private void openProfilePage(){
+        Log.d(TAG, "openProfilePage: ");
         binding.navView.setCheckedItem(R.id.menu_profile);
         getSupportFragmentManager()
                 .beginTransaction()

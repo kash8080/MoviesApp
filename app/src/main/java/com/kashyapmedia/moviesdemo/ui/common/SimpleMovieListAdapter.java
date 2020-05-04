@@ -1,9 +1,13 @@
 package com.kashyapmedia.moviesdemo.ui.common;
 
+import android.animation.TimeInterpolator;
 import android.content.Context;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.OvershootInterpolator;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,15 +28,22 @@ public class SimpleMovieListAdapter extends RecyclerView.Adapter< ViewBindViewHo
     private static final String TAG = "MovieListAdapter";
     private MovieCallback movieCallback;
 
+    public static final int likeAnimDuration=150;
+
     // TODO: 01-05-2020 inject with di as a singleton
     private RequestOptions requestOptions;
     private RequestManager requestManager;
     private List<MovieEntity> list;
+    private Handler handler;
+
+    private TimeInterpolator likeInterpolator=new OvershootInterpolator(20);
 
     public SimpleMovieListAdapter(MovieCallback movieCallback, Context context) {
 
         this.movieCallback=movieCallback;
+        handler=new Handler();
         list=new ArrayList<>();
+        // TODO: 04-05-2020 add error and placeholder images 
         requestOptions= new RequestOptions().override(ScreenUtils.convertDpToPixels(200,context));
         requestManager=Glide.with(context)
                 .applyDefaultRequestOptions(requestOptions);
@@ -62,7 +73,6 @@ public class SimpleMovieListAdapter extends RecyclerView.Adapter< ViewBindViewHo
             holder.binding.image.setImageDrawable(null);// TODO: 01-05-2020
         }
 
-        holder.binding.title.setText(movieEntity.title);
         if(movieEntity.isFavourite){
             holder.binding.iconLike.setImageResource(R.drawable.ic_favourite_on);
         }else{
@@ -71,9 +81,30 @@ public class SimpleMovieListAdapter extends RecyclerView.Adapter< ViewBindViewHo
         holder.binding.iconLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                movieCallback.onLikeClick(movieEntity,position);
+                animateLikeClick(holder.binding.iconLike);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        movieCallback.onLikeClick(movieEntity,position);
+                    }
+                },likeAnimDuration);
+
             }
         });
+
+    }
+    private void animateLikeClick(ImageView like){
+        if(like.animate()!=null){
+            like.animate().cancel();
+        }
+        like.setScaleX(0.95f);
+        like.setScaleY(0.95f);
+        like.animate()
+                .scaleX(1f)
+                .scaleY(1f)
+                .setInterpolator(likeInterpolator)
+                .setDuration(likeAnimDuration)
+                ;
 
     }
 

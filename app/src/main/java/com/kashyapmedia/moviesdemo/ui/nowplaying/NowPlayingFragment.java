@@ -36,7 +36,7 @@ public class NowPlayingFragment extends Fragment implements SimpleMovieListAdapt
 
         movieListAdapter=new SimpleMovieListAdapter(this,getActivity());
         binding.recView.setAdapter(movieListAdapter);
-        binding.recView.setLayoutManager(new GridLayoutManager(getActivity(),2));
+        binding.recView.setLayoutManager(new GridLayoutManager(getActivity(),getResources().getInteger(R.integer.movie_cols)));
 
         return view;
     }

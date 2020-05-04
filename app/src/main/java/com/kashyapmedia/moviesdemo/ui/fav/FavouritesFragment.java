@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import com.kashyapmedia.moviesdemo.R;
 import com.kashyapmedia.moviesdemo.databinding.FragmentFavouritesBinding;
 import com.kashyapmedia.moviesdemo.db.entities.MovieEntity;
 import com.kashyapmedia.moviesdemo.repository.Resource;
@@ -38,7 +39,7 @@ public class FavouritesFragment extends Fragment implements  SimpleMovieListAdap
 
         movieListAdapter=new SimpleMovieListAdapter(this,getActivity());
         binding.recView.setAdapter(movieListAdapter);
-        binding.recView.setLayoutManager(new GridLayoutManager(getActivity(),2));
+        binding.recView.setLayoutManager(new GridLayoutManager(getActivity(),getResources().getInteger(R.integer.movie_cols)));
 
         return view;
     }
