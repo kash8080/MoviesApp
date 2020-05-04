@@ -18,6 +18,7 @@ import com.kashyapmedia.moviesdemo.databinding.FragmentFavouritesBinding;
 import com.kashyapmedia.moviesdemo.db.entities.MovieEntity;
 import com.kashyapmedia.moviesdemo.repository.Resource;
 import com.kashyapmedia.moviesdemo.ui.common.SimpleMovieListAdapter;
+import com.kashyapmedia.moviesdemo.ui.moviedetails.MovieDetailActivity;
 
 import java.util.List;
 
@@ -86,7 +87,7 @@ public class FavouritesFragment extends Fragment implements  SimpleMovieListAdap
 
     @Override
     public void onClick(MovieEntity movieEntity, int pos) {
-
+        MovieDetailActivity.startThisActivity(getActivity(),movieEntity.id);
     }
 
     @Override

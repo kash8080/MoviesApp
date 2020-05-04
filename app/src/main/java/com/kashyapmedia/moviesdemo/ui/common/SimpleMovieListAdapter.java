@@ -43,7 +43,7 @@ public class SimpleMovieListAdapter extends RecyclerView.Adapter< ViewBindViewHo
         this.movieCallback=movieCallback;
         handler=new Handler();
         list=new ArrayList<>();
-        // TODO: 04-05-2020 add error and placeholder images 
+        // TODO: 04-05-2020 add error and placeholder images
         requestOptions= new RequestOptions().override(ScreenUtils.convertDpToPixels(200,context));
         requestManager=Glide.with(context)
                 .applyDefaultRequestOptions(requestOptions);
